@@ -1,0 +1,50 @@
+﻿@page "/"
+@using PizzaLaMatica.Shared
+
+ 
+<!-- Menu -->
+<h1>Our Seleccion of Pizzas</h1>
+@foreach (var pizza in State.Menu.Pizzas)
+{
+    <div class="row">
+        <div clss="col" style="border:solid">
+            @pizza.Name
+        </div>
+        <div class="col">
+            @pizza.Price
+        </div>
+        <div class="col">
+            <img src="@SpicinessImage(pizza.Spiciness)" style="width:50px" alt="@pizza.Spiciness" />
+        </div>
+        <div class="col">
+            <button class="btn btn-success" @onclick="(() => AddToBasket(pizza))">
+                Add
+            </button>
+        </div>
+    </div>
+}
+
+<!-- End Menu -->
+
+@code
+{
+    public State State { get; } = new State()
+        {
+            Menu = new Menu
+            {
+                Pizzas = new List<Pizza>
+            {
+                new Pizza(1, "Pepperoni", 8.99M, Spiciness.Spicy),
+                new Pizza(2, "Margarita", 7.99M, Spiciness.None),
+                new Pizza(3, "Hawahian", 9.99M, Spiciness.Hot)
+
+            }
+            }
+        };
+    private string SpicinessImage(Spiciness spiciness) => $"images/{spiciness.ToString().ToLower()}.png";
+    private void AddToBasket(Pizza pizza) 
+    {
+        State.Basket.Add(pizza.Id);
+        Console.WriteLine($"{pizza.Name} added to the Basket");
+    }
+}
