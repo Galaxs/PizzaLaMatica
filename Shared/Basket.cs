@@ -17,7 +17,10 @@ namespace PizzaLaMatica.Shared
         {
             Orders.Add(pizzaId);
         }
-
+        public void RemoveAt(int pos)
+        {
+            Orders.RemoveAt(pos);
+        }
         
     }
 }

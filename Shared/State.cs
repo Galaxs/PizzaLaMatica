@@ -13,6 +13,7 @@ namespace PizzaLaMatica.Shared
         public Basket Basket { get; set; } = new Basket();
         public UI UI { get; set; } = new UI();
 
+        public decimal TotalPrice => Basket.Orders.Sum(id => Menu.GetPizza(id).Price);
 
     }
 }
